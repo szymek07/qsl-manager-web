@@ -2,7 +2,7 @@ name: Build my frontend angular project
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   build-and-deploy:

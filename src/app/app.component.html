@@ -1,0 +1,114 @@
+<style>
+  main {
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    box-sizing: inherit;
+    position: relative;
+    background-color: #b6b4b4;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+
+  .zhp-logo {
+    width: 100px;
+    height: auto;
+    display: block;
+    margin-right: 20px;
+  }
+
+  .content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 3rem;
+  }
+
+  .content form {
+    display: flex;
+    align-items: center;
+  }
+
+  .content form label {
+    /*margin-right: 10px;*/
+  }
+
+  .content form input {
+    /*margin-right: 10px;*/
+  }
+
+  .margin {
+    margin-right: 10px;
+  }
+
+</style>
+
+<main class="main">
+
+  <div >
+
+    <div class="header">
+      <img src="https://sp6zhp.pl/wp-content/uploads/2023/12/logo-zhp.png" alt="Logo ZHP" class="zhp-logo">
+      <h3>Harcerski Klub Łączności SP6ZHP RadioAktywni</h3>
+    </div>
+
+    <h3>Wpisz swój znak aby sprawdzić czy w Klubie czekają na Ciebie karty QSL</h3>
+
+    <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
+      <div class="content">
+        <label class="margin" for="call">
+          <b>Znak:</b>
+        </label>
+        <input class="form-control margin" id="call" name="call" [(ngModel)]="call" required/>
+        <button class="btn btn-primary"  type="submit" [disabled]="userForm.invalid">Submit</button>
+      </div>
+    </form>
+
+    <div  *ngIf="apiResponse.length > 0">
+      <h3>Znaleziono następujące informacje o kartach QSL</h3>
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>Znak</th>
+          <th>Liczba kart QSL</th>
+          <th>Data wprowadzenia informacji</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let response of apiResponse; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td class="call">{{ response.callsign }}</td>
+          <td>{{ response.qty }}</td>
+          <td>{{ response.lastUpdated | date:'yyyy-MM-dd HH:mm' }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div  *ngIf="apiResponse.length == 0 && submitted">
+      <h3>Brak informacji o kartach QSL dla znaku: {{ call }}</h3>
+    </div>
+
+    <div class="header"></div>
+
+    <hr/>
+
+    <div >
+      <span>Zapraszamy do odwiedzenia naszej strony klubowej: </span>
+      <a href="https://sp6zhp.pl/">sp6zhp.pl</a>
+    </div>
+
+  </div>
+
+</main>
+
+<router-outlet />

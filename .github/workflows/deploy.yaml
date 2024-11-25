@@ -40,4 +40,6 @@ jobs:
 #          password: ${{ secrets.DOCKER_PASSWORD }}
 #          dockerfile: Dockerfile
 
+# https://docs.github.com/en/actions/use-cases-and-examples/building-and-testing/building-and-testing-nodejs
+# https://docs.github.com/en/actions/use-cases-and-examples/publishing-packages/publishing-docker-images
 

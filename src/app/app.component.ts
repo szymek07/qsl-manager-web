@@ -16,6 +16,7 @@ export class AppComponent {
   call: string = '';
   submitted: boolean = false;
   apiResponse: ApiResponse[] = [];
+  loading: boolean = false;
 
   constructor(private http: HttpClient) {}
 
@@ -28,13 +29,16 @@ export class AppComponent {
   }
 
   makeApiCall(callValue: string) {
-    const url = `http://localhost:8080/qsl/to-pickup?call=${callValue}`;
+    const url = `/qsl/to-pickup?call=${callValue}`;
+    this.loading = true;
     this.http.get<ApiResponse[]>(url).subscribe(
       response => {
         this.apiResponse = response;
+        this.loading = false;
         console.log('API response:', response);
       },
       error => {
+        this.loading = false;
         console.error('API error:', error);
       }
     );

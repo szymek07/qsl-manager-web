@@ -1,0 +1,9 @@
+{
+  "/qsl": {
+    "target": "http://localhost:8080/qsl",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": {"^/qsl" : ""}
+  }
+}
